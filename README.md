@@ -24,7 +24,7 @@ At present, only one option is available: `overrides`. Using lazy.nvim:
 
 ```lua
 {
-    "kamwitsta/vinyl.nvim" 
+    "kamwitsta/vinyl.nvim",
     config = function()
         require("vinyl").setup({
             overrides = {
