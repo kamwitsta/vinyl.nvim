@@ -4,13 +4,13 @@ local p = require("vinyl.palette").palette
 
 M.theme = {
 	
-	-- normal -------------------------------------------------------------------------------------- {{{ -
+	-- normal -------------------------------------------------------------------------------- {{{ -
 
 	["Normal"]					= {fg=p.beige100,bg=p.beige0},		-- Normal text.
 	["NormalNoBG"]				= {fg=p.beige100},					-- hack to get CursorLine under anything linked to Normal
 	
-	-- --------------------------------------------------------------------------------------------- }}} -
-	-- comments ------------------------------------------------------------------------------------ {{{ -
+	-- --------------------------------------------------------------------------------------- }}} -
+	-- comments ------------------------------------------------------------------------------ {{{ -
 
 	["@comment"]				= {fg=p.beige40},					-- line and block comments
 	["Comment"]					= {link="@comment"},				-- any comment
@@ -29,8 +29,8 @@ M.theme = {
 	["@comment.documentation"]	= {fg=p.green2},					-- comments documenting code
 	["@string.documentation"]	= {link="@comment.documentation"},	-- string documenting code (e.g. Python docstrings)
 	
-	-- --------------------------------------------------------------------------------------------- }}} -
-	-- constants ----------------------------------------------------------------------------------- {{{ -
+	-- --------------------------------------------------------------------------------------- }}} -
+	-- constants ----------------------------------------------------------------------------- {{{ -
 
 	["@constant"]				= {fg=p.purple1},					-- constant identifiers
 	["@boolean"]				= {link="@constant"},				-- boolean literals
@@ -51,8 +51,8 @@ M.theme = {
 	["Number"]					= {link="@constant"},				-- a number constant: 234, 0xff
 	["String"]					= {link="@constant"},				-- a string constant: "this is a string"
 	
-	-- --------------------------------------------------------------------------------------------- }}} -
-	-- specials ------------------------------------------------------------------------------------ {{{ -
+	-- --------------------------------------------------------------------------------------- }}} -
+	-- specials ------------------------------------------------------------------------------ {{{ -
 
 	["@character.special"]		= {fg=p.purple2},					-- special characters (e.g. wildcards)
 	["@string.escape"]			= {link="@character.special"},		-- escape sequences
@@ -65,16 +65,16 @@ M.theme = {
 
 	["SpecialComment"]			= {fg=p.beige60},					-- special things inside a comment
 	
-	-- --------------------------------------------------------------------------------------------- }}} -
-	-- variables ----------------------------------------------------------------------------------- {{{ -
+	-- --------------------------------------------------------------------------------------- }}} -
+	-- variables ----------------------------------------------------------------------------- {{{ -
 
 	["@variable"]				= {link="NormalNoBG"},				-- various variable names
 	["@variable.parameter"]		= {link="NormalNoBG"},				-- parameters of a function
 	["@variable.member"]		= {link="NormalNoBG"},				-- object and struct fields
 	["Identifier"]				= {link="NormalNoBG"},				-- any variable name
 
-	-- --------------------------------------------------------------------------------------------- }}} -
-	-- functions ----------------------------------------------------------------------------------- {{{ -
+	-- --------------------------------------------------------------------------------------- }}} -
+	-- functions ----------------------------------------------------------------------------- {{{ -
 
 	["@function"]				= {fg=p.blue1},						-- function definitions
 	["@function.method"]		= {link="@function"},				-- method definitions
@@ -84,8 +84,8 @@ M.theme = {
 	["@function.call"]			= {link="NormalNoBG"},				-- function calls
 	["@function.method.call"]	= {link="NormalNoBG"},				-- method calls
 
-	-- --------------------------------------------------------------------------------------------- }}} -
-	-- types --------------------------------------------------------------------------------------- {{{ -
+	-- --------------------------------------------------------------------------------------- }}} -
+	-- types --------------------------------------------------------------------------------- {{{ -
 
 	["@type"]					= {fg=p.green1},					-- type or class definitions and annotations
 	["@keyword"]				= {link="@type"},					-- keywords not fitting into specific categories
@@ -106,16 +106,16 @@ M.theme = {
 	
 	["@keyword.modifier"]		= {fg=p.green2},					-- keywords modifying other constructs (e.g. `const`, `static`, `public`)
 
-	-- --------------------------------------------------------------------------------------------- }}} -
-	-- delimiters ---------------------------------------------------------------------------------- {{{ -
+	-- --------------------------------------------------------------------------------------- }}} -
+	-- delimiters ---------------------------------------------------------------------------- {{{ -
 
 	["@punctuation.bracket"]	= {fg=p.orange1},					-- brackets (e.g. `()`, `{}`, `[]`)
 	["@punctuation.delimiter"]	= {link="@punctuation.bracket"},	-- delimiters (e.g. `;`, `.`, `,`)
 	["@tag.delimiter"]			= {link="@punctuation.bracket"},	-- XML-style tag delimiters
 	["Delimiter"]				= {link="@punctuation.bracket"},	-- character that needs attention
 	
-	-- --------------------------------------------------------------------------------------------- }}} -
-	-- operators ----------------------------------------------------------------------------------- {{{ -
+	-- --------------------------------------------------------------------------------------- }}} -
+	-- operators ----------------------------------------------------------------------------- {{{ -
 
 	["@operator"]				= {fg=p.teal2},						-- symbolic operators (e.g. `+`, `*`)
 	["@keyword.operator"]		= {link="@operator"},				-- operators that are English words (e.g. `and`, `or`)
@@ -123,8 +123,8 @@ M.theme = {
 	["@variable.parameter.builtin"] = {link="@operator"},			-- special parameters (e.g. `_`, `it`)
 	["Operator"]				= {link="@operator"},				-- "sizeof", "+", "*", etc.
 	
-	-- --------------------------------------------------------------------------------------------- }}} -
-	-- flow control -------------------------------------------------------------------------------- {{{ -
+	-- --------------------------------------------------------------------------------------- }}} -
+	-- flow control -------------------------------------------------------------------------- {{{ -
 
 	["@keyword.conditional"]	= {fg=p.red},						-- keywords related to conditionals (e.g. `if`, `else`)
 	["@keyword.conditional.ternary"] = {link="@keyword.conditional"},-- ternary operator (e.g. `?`, `:`)
@@ -141,8 +141,8 @@ M.theme = {
 	["@keyword.coroutine"]		= {link="NormalNoBG"},				-- keywords related to coroutines (e.g. `go` in Go, `async/await` in Python)
 	["Repeat"]					= {link="NormalNoBG"},				-- for, do, while, etc.
 	
-	-- --------------------------------------------------------------------------------------------- }}} -
-	-- preproc ------------------------------------------------------------------------------------- {{{ -
+	-- --------------------------------------------------------------------------------------- }}} -
+	-- preproc ------------------------------------------------------------------------------- {{{ -
 	
 	["@keyword.import"]			= {link="NormalNoBG"},				-- keywords for including or exporting modules (e.g. `import`, `from` in Python)
 	["@keyword.directive"]		= {link="NormalNoBG"},				-- various preprocessor directives and shebangs
@@ -151,14 +151,14 @@ M.theme = {
 	["PreCondit"]				= {link="NormalNoBG"},				-- preprocessor #if, #else, #endif, etc.
 	["PreProc"]					= {link="NormalNoBG"},				-- generic Preprocessor
 
-	-- --------------------------------------------------------------------------------------------- }}} -
-	-- debugging ----------------------------------------------------------------------------------- {{{ -
+	-- --------------------------------------------------------------------------------------- }}} -
+	-- debugging ----------------------------------------------------------------------------- {{{ -
 	
 	["@keyword.debug"]			= {fg=p.yellow},					-- keywords related to debugging
 	["Debug"]					= {link="@keyword.debug"},			-- debugging statements
 
-	-- --------------------------------------------------------------------------------------------- }}} -
-	-- other --------------------------------------------------------------------------------------- {{{ -
+	-- --------------------------------------------------------------------------------------- }}} -
+	-- other --------------------------------------------------------------------------------- {{{ -
 
 	
 	["@attribute"]				= {fg=p.teal1},						-- attribute annotations (e.g. Python decorators, Rust lifetimes)
@@ -168,9 +168,9 @@ M.theme = {
 	["@module"]					= {link="NormalNoBG"},				-- modules or namespaces
 	["@module.builtin"]			= {link="NormalNoBG"},				-- built-in modules or namespaces
 	
-	-- --------------------------------------------------------------------------------------------- }}} -
+	-- --------------------------------------------------------------------------------------- }}} -
 
-	-- diff ---------------------------------------------------------------------------------------- {{{ -
+	-- diff ---------------------------------------------------------------------------------- {{{ -
 
 	["@diff.delta"]				= {fg=p.beige0,bg=p.blue2},			-- changed text (for diff files)
 	["Changed"]					= {link="@diff.delta"},				-- changed line in a diff
@@ -186,9 +186,9 @@ M.theme = {
 
 	["DiffText"]				= {link="NormalNoBG"},				-- Diff mode: Changed text within a changed line. |diff.txt|
 
-	-- --------------------------------------------------------------------------------------------- }}} -
+	-- --------------------------------------------------------------------------------------- }}} -
 
-	-- markup -------------------------------------------------------------------------------------- {{{ -
+	-- markup -------------------------------------------------------------------------------- {{{ -
 	
 	["@markup.heading"]			= {bold=true},						-- headings, titles (including markers)
 	["@markup.heading.1"]		= {fg=p.red,bold=true},				-- top-level heading
@@ -223,16 +223,16 @@ M.theme = {
 
 	["@markup.underline"]		= {underline=true},					-- underlined text (only for literal underline markup!)
 
-	-- --------------------------------------------------------------------------------------------- }}} -
-	-- tags ---------------------------------------------------------------------------------------- {{{ -
+	-- --------------------------------------------------------------------------------------- }}} -
+	-- tags ---------------------------------------------------------------------------------- {{{ -
 	
 	["@tag"]					= {link="NormalNoBG"},				-- XML-style tag names (e.g. in XML, HTML, etc.)
 	["@tag.attribute"]			= {link="NormalNoBG"},				-- XML-style tag attributes
 	["@tag.builtin"]			= {link="NormalNoBG"},				-- builtin tag names (e.g. HTML5 tags)
 	
-	-- --------------------------------------------------------------------------------------------- }}} -
+	-- --------------------------------------------------------------------------------------- }}} -
 
-	-- ui ------------------------------------------------------------------------------------------ {{{ -
+	-- ui ------------------------------------------------------------------------------------ {{{ -
 
 	["Cursor"]					= {fg=p.beige0,bg=p.beige100},		-- Character under the cursor.
 	["CursorIM"]				= {link="Cursor"},					-- Like Cursor, but used when in IME mode. *CursorIM*
@@ -273,7 +273,7 @@ M.theme = {
 	["Question"]				= {link="MoreMsg"},					-- |hit-enter| prompt and yes/no questions.
 	["WarningMsg"]				= {link="@comment.warning"},		-- Warning messages.
 
-	["NonText"]					= {fg=p.beige20},					-- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
+	["NonText"]					= {fg=p.beige10},					-- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
 	["EndOfBuffer"]				= {link="NonText"},      			-- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
 	["Whitespace"]				= {link="NonText"},					-- "nbsp", "space", "tab", "multispace", "lead" and "trail" in 'listchars'.
 
@@ -326,9 +326,18 @@ M.theme = {
 
 	["WinSeparator"]			= {fg=p.beige80},					-- Separators between window splits.
 
-	-- --------------------------------------------------------------------------------------------- }}} -
+	-- --------------------------------------------------------------------------------------- }}} -
 
-	-- lsp diagnostics ----------------------------------------------------------------------------- {{{ -
+	-- indegrations -------------------------------------------------------------------------- {{{ -
+	
+	-- https://github.com/lukas-reineke/indent-blankline.nvim
+	["IblIndent"]				= {fg=p.beige20},					-- The default highlight group for indentation characters.
+	["IblWhitespace"]			= {link="NormalNoBG"},				-- The default highlight group for whitespace characters.
+	["IblScope"]				= {link="@function"},				-- The default highlight group for |ibl.config.scope| characters.
+
+	-- --------------------------------------------------------------------------------------- }}} -
+
+	-- lsp diagnostics ----------------------------------------------------------------------- {{{ -
 
 	["DiagnosticError"]				= {fg=p.red,bg=p.beige10},	--Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
 	["DiagnosticWarn"]				= {fg=p.yellow,bg=p.beige10},	--Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
@@ -358,9 +367,9 @@ M.theme = {
 	["DiagnosticDeprecated"]		= {fg=p.purple1,bg=p.beige10},	--Used for deprecated or obsolete code.
 	["DiagnosticUnnecessary"]		= {fg=p.teal1,bg=p.beige10},	--Used for unnecessary or unused code.
 
-	-- --------------------------------------------------------------------------------------------- }}} -
+	-- --------------------------------------------------------------------------------------- }}} -
 
-	-- lsp (disabled) ------------------------------------------------------------------------------ {{{ -
+	-- lsp (disabled) ------------------------------------------------------------------------ {{{ -
 
 	-- ["@lsp.mod.abstract"]			= {link="NormalNoBG"},				-- Types and member functions that are abstract
 	-- ["@lsp.mod.async"]				= {link="NormalNoBG"},				-- Functions that are marked async
@@ -394,7 +403,7 @@ M.theme = {
 	-- ["@lsp.type.typeParameter"]		= {link="NormalNoBG"},				-- Identifiers that declare or reference a type parameter
 	-- ["@lsp.type.variable"]			= {link="NormalNoBG"},				-- Identifiers that declare or reference a local or global variable
 
-	-- --------------------------------------------------------------------------------------------- }}} -
+	-- --------------------------------------------------------------------------------------- }}} -
 	
 }
 
