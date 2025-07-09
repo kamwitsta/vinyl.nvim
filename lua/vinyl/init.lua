@@ -1,8 +1,10 @@
 local M = {}
 
-M.theme = require("vinyl.theme").theme
+M.theme = require("vinyl.theme").get_theme(nil)
 
 function M.setup(opts)
+
+	M.theme = require("vinyl.theme").get_theme(opts["variant"])
 
 	if opts["overrides"] then
 		for k,v in pairs(opts["overrides"]) do

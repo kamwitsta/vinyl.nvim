@@ -1,9 +1,13 @@
 local M = {}
 
-local p = require("vinyl.palette").palette
+function M.get_theme(variant)
 
-M.theme = {
-	
+	vim.print(variant)
+
+	local p = require("vinyl.palette").get_palette(variant)
+
+	return {
+
 	-- normal -------------------------------------------------------------------------------- {{{ -
 
 	["Normal"]					= {fg=p.beige100,bg=p.beige0},		-- Normal text.
@@ -19,20 +23,22 @@ M.theme = {
 	["@comment.error"]			= {fg=p.beige0,bg=p.red},			-- error-type comments (e.g. `ERROR`, `FIXME`, `DEPRECATED`)
 	["Error"]					= {link="@comment.error"},			-- left blank, hidden |hl-Ignore|
 
-	["@comment.todo"]			= {fg=p.beige0,bg=p.orange2},		-- todo-type comments (e.g. `TODO`, `WIP`)
+	["@comment.todo"]			= {fg=p.beige0,bg=p.orange},		-- todo-type comments (e.g. `TODO`, `WIP`)
 	["Todo"]					= {link="@comment.todo"},			-- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
 
-	["@comment.warning"]		= {fg=p.beige0,bg=p.orange1},		-- warning-type comments (e.g. `WARNING`, `FIX`, `HACK`)
+	["@comment.warning"]		= {fg=p.beige0,bg=p.orange},		-- warning-type comments (e.g. `WARNING`, `FIX`, `HACK`)
 
 	["@comment.note"]			= {fg=p.beige0,bg=p.yellow},		-- note-type comments (e.g. `NOTE`, `INFO`, `XXX`)
 
-	["@comment.documentation"]	= {fg=p.green2},					-- comments documenting code
+	["@comment.documentation"]	= {fg=p.green},						-- comments documenting code
 	["@string.documentation"]	= {link="@comment.documentation"},	-- string documenting code (e.g. Python docstrings)
+
+	["SpecialComment"]			= {fg=p.beige60},					-- special things inside a comment
 	
 	-- --------------------------------------------------------------------------------------- }}} -
 	-- constants ----------------------------------------------------------------------------- {{{ -
 
-	["@constant"]				= {fg=p.purple1},					-- constant identifiers
+	["@constant"]				= {fg=p.green},						-- constant identifiers
 	["@boolean"]				= {link="@constant"},				-- boolean literals
 	["@character"]				= {link="@constant"},				-- character literals
 	["@constant.builtin"]		= {link="@constant"},				-- built-in constant values
@@ -40,10 +46,6 @@ M.theme = {
 	["@number"]					= {link="@constant"},				-- numeric literals
 	["@number.float"]			= {link="@constant"},				-- floating-point number literals
 	["@string"]					= {link="@constant"},				-- string literals
-	["@string.special"]			= {link="@constant"},				-- other special strings (e.g. dates)
-	["@string.special.path"]	= {link="@constant"},				-- filenames
-	["@string.special.symbol"]	= {link="@constant"},				-- symbols or atoms
-	["@string.special.url"]		= {link="@constant"},				-- URIs (e.g. hyperlinks)
 	["Boolean"]					= {link="@constant"},				-- a boolean constant: TRUE, false
 	["Character"]				= {link="@constant"},				-- a character constant: 'c', '\n'
 	["Constant"]				= {link="@constant"},				-- any constant
@@ -54,16 +56,21 @@ M.theme = {
 	-- --------------------------------------------------------------------------------------- }}} -
 	-- specials ------------------------------------------------------------------------------ {{{ -
 
-	["@character.special"]		= {fg=p.purple2},					-- special characters (e.g. wildcards)
+	["@character.special"]		= {fg=p.purple},					-- special characters (e.g. wildcards)
+	["@attribute"]				= {link="@character.special"},		-- attribute annotations (e.g. Python decorators, Rust lifetimes)
+	["@attribute.builtin"]		= {link="@character.special"},		-- builtin annotations (e.g. `@property` in Python)
+	["@property"]				= {link="@character.special"},		-- the key in key/value pairs
 	["@string.escape"]			= {link="@character.special"},		-- escape sequences
 	["@string.regexp"]			= {link="@character.special"},		-- regular expressions
+	["@string.special"]			= {link="@character.special"},		-- other special strings (e.g. dates)
+	["@string.special.path"]	= {link="@character.special"},		-- filenames
+	["@string.special.symbol"]	= {link="@character.special"},		-- symbols or atoms
+	["@string.special.url"]		= {link="@character.special"},		-- URIs (e.g. hyperlinks)
 	["@punctuation.special"]	= {link="@character.special"},		-- special symbols (e.g. `{}` in string interpolation)
 	["Conceal"]					= {link="@character.special"},		-- Placeholder characters substituted for concealed text (see 'conceallevel').
 	["Special"]					= {link="@character.special"},		-- any special symbol
 	["SpecialChar"]				= {link="@character.special"},		-- special character in a constant
 	["SpecialKey"]				= {link="@character.special"},		-- Unprintable characters: Text displayed differently from what it really is. But not 'listchars' whitespace. |hl-Whitespace|
-
-	["SpecialComment"]			= {fg=p.beige60},					-- special things inside a comment
 	
 	-- --------------------------------------------------------------------------------------- }}} -
 	-- variables ----------------------------------------------------------------------------- {{{ -
@@ -76,21 +83,19 @@ M.theme = {
 	-- --------------------------------------------------------------------------------------- }}} -
 	-- functions ----------------------------------------------------------------------------- {{{ -
 
-	["@function"]				= {fg=p.blue1},						-- function definitions
-	["@function.method"]		= {link="@function"},				-- method definitions
+	["@function"]				= {fg=p.yellow},					-- function definitions
 	["Function"]				= {link="@function"},				-- function name (also: methods for classes)
 
 	["@function.builtin"]		= {link="NormalNoBG"},				-- built-in functions
 	["@function.call"]			= {link="NormalNoBG"},				-- function calls
+	["@function.macro"]			= {link="NormalNoBG"},				-- preprocessor macros
+	["@function.method"]		= {link="NormalNoBG"},				-- method definitions
 	["@function.method.call"]	= {link="NormalNoBG"},				-- method calls
 
 	-- --------------------------------------------------------------------------------------- }}} -
 	-- types --------------------------------------------------------------------------------- {{{ -
 
-	["@type"]					= {fg=p.green1},					-- type or class definitions and annotations
-	["@keyword"]				= {link="@type"},					-- keywords not fitting into specific categories
-	["@keyword.function"]		= {link="@type"},					-- keywords that define a function (e.g. `func` in Go, `def` in Python)
-	["@keyword.type"]			= {link="@type"},					-- keywords describing namespaces and composite types (e.g. `struct`, `enum`)
+	["@type"]					= {fg=p.red},						-- type or class definitions and annotations
 	["@type.builtin"]			= {link="@type"},					-- built-in types
 	["@type.definition"]		= {link="@type"},					-- identifiers in type definitions (e.g. `typedef <type> <identifier>` in C)
 	["Type"]					= {link="@type"},					-- int, long, char, etc.
@@ -100,16 +105,18 @@ M.theme = {
 
 	["@constructor"]			= {link="@type"},					-- constructor calls and definitions
 
-	["@function.macro"]			= {link="@type"},					-- preprocessor macros
 	["Define"]					= {link="@type"},					-- preprocessor #define
 	["Macro"]					= {link="@type"},					-- same as Define
 	
-	["@keyword.modifier"]		= {fg=p.green2},					-- keywords modifying other constructs (e.g. `const`, `static`, `public`)
+	["@keyword"]				= {link="@type"},					-- keywords not fitting into specific categories
+	["@keyword.function"]		= {link="@type"},					-- keywords that define a function (e.g. `func` in Go, `def` in Python)
+	["@keyword.modifier"]		= {link="@type"},					-- keywords modifying other constructs (e.g. `const`, `static`, `public`)
+	["@keyword.type"]			= {link="@type"},					-- keywords describing namespaces and composite types (e.g. `struct`, `enum`)
 
 	-- --------------------------------------------------------------------------------------- }}} -
 	-- delimiters ---------------------------------------------------------------------------- {{{ -
 
-	["@punctuation.bracket"]	= {fg=p.orange1},					-- brackets (e.g. `()`, `{}`, `[]`)
+	["@punctuation.bracket"]	= {fg=p.orange},					-- brackets (e.g. `()`, `{}`, `[]`)
 	["@punctuation.delimiter"]	= {link="@punctuation.bracket"},	-- delimiters (e.g. `;`, `.`, `,`)
 	["@tag.delimiter"]			= {link="@punctuation.bracket"},	-- XML-style tag delimiters
 	["Delimiter"]				= {link="@punctuation.bracket"},	-- character that needs attention
@@ -117,7 +124,7 @@ M.theme = {
 	-- --------------------------------------------------------------------------------------- }}} -
 	-- operators ----------------------------------------------------------------------------- {{{ -
 
-	["@operator"]				= {fg=p.teal2},						-- symbolic operators (e.g. `+`, `*`)
+	["@operator"]				= {fg=p.blue},						-- symbolic operators (e.g. `+`, `*`)
 	["@keyword.operator"]		= {link="@operator"},				-- operators that are English words (e.g. `and`, `or`)
 	["@variable.builtin"]		= {link="@operator"},				-- built-in variable names (e.g. `this`, `self`)
 	["@variable.parameter.builtin"] = {link="@operator"},			-- special parameters (e.g. `_`, `it`)
@@ -143,48 +150,22 @@ M.theme = {
 	
 	-- --------------------------------------------------------------------------------------- }}} -
 	-- preproc ------------------------------------------------------------------------------- {{{ -
-	
-	["@keyword.import"]			= {link="NormalNoBG"},				-- keywords for including or exporting modules (e.g. `import`, `from` in Python)
-	["@keyword.directive"]		= {link="NormalNoBG"},				-- various preprocessor directives and shebangs
-	["@keyword.directive.define"] = {link="NormalNoBG"},			-- preprocessor definition directives
-	["Include"]					= {link="NormalNoBG"},				-- preprocessor #include
-	["PreCondit"]				= {link="NormalNoBG"},				-- preprocessor #if, #else, #endif, etc.
-	["PreProc"]					= {link="NormalNoBG"},				-- generic Preprocessor
+
+	["@module"]					= {fg=p.blue},						-- modules or namespaces
+	["@module.builtin"]			= {link="@module"},					-- built-in modules or namespaces
+
+	["@keyword.import"]			= {link="@module"},					-- keywords for including or exporting modules (e.g. `import`, `from` in Python)
+	["@keyword.directive"]		= {link="@module"},					-- various preprocessor directives and shebangs
+	["@keyword.directive.define"] = {link="@module"},				-- preprocessor definition directives
+	["Include"]					= {link="@module"},					-- preprocessor #include
+	["PreCondit"]				= {link="@module"},					-- preprocessor #if, #else, #endif, etc.
+	["PreProc"]					= {link="@module"},					-- generic Preprocessor
 
 	-- --------------------------------------------------------------------------------------- }}} -
 	-- debugging ----------------------------------------------------------------------------- {{{ -
 	
-	["@keyword.debug"]			= {fg=p.yellow},					-- keywords related to debugging
+	["@keyword.debug"]			= {fg=p.teal},						-- keywords related to debugging
 	["Debug"]					= {link="@keyword.debug"},			-- debugging statements
-
-	-- --------------------------------------------------------------------------------------- }}} -
-	-- other --------------------------------------------------------------------------------- {{{ -
-
-	
-	["@attribute"]				= {fg=p.teal1},						-- attribute annotations (e.g. Python decorators, Rust lifetimes)
-	["@attribute.builtin"]		= {link="@attribute"},				-- builtin annotations (e.g. `@property` in Python)
-	["@property"]				= {link="@attribute"},				-- the key in key/value pairs
-
-	["@module"]					= {link="NormalNoBG"},				-- modules or namespaces
-	["@module.builtin"]			= {link="NormalNoBG"},				-- built-in modules or namespaces
-	
-	-- --------------------------------------------------------------------------------------- }}} -
-
-	-- diff ---------------------------------------------------------------------------------- {{{ -
-
-	["@diff.delta"]				= {fg=p.beige0,bg=p.blue2},			-- changed text (for diff files)
-	["Changed"]					= {link="@diff.delta"},				-- changed line in a diff
-	["DiffChange"]				= {link="@diff.delta"},				-- Diff mode: Changed line. |diff.txt|
-	
-	["@diff.plus"]				= {fg=p.beige0,bg=p.green2},		-- added text (for diff files)
-	["Added"]					= {link="@diff.plus"},				-- added line in a diff
-	["DiffAdd"]					= {link="@diff.plus"},				-- Diff mode: Added line. |diff.txt|
-
-	["@diff.minus"]				= {fg=p.beige0,bg=p.orange2},		-- deleted text (for diff files)
-	["DiffDelete"]				= {link="@diff.minus"},				-- Diff mode: Deleted line. |diff.txt|
-	["Removed"]					= {link="@diff.minus"},				-- removed line in a diff
-
-	["DiffText"]				= {link="NormalNoBG"},				-- Diff mode: Changed text within a changed line. |diff.txt|
 
 	-- --------------------------------------------------------------------------------------- }}} -
 
@@ -192,11 +173,11 @@ M.theme = {
 	
 	["@markup.heading"]			= {bold=true},						-- headings, titles (including markers)
 	["@markup.heading.1"]		= {fg=p.red,bold=true},				-- top-level heading
-	["@markup.heading.2"]		= {fg=p.orange1,bold=true},			-- section heading
-	["@markup.heading.3"]		= {fg=p.orange2,bold=true},			-- subsection heading
-	["@markup.heading.4"]		= {fg=p.yellow,bold=true},			-- and so on
-	["@markup.heading.5"]		= {fg=p.green1,bold=true},			-- and so forth
-	["@markup.heading.6"]		= {fg=p.green2,bold=true},			-- six levels ought to be enough for anybody
+	["@markup.heading.2"]		= {fg=p.orange,bold=true},			-- section heading
+	["@markup.heading.3"]		= {fg=p.yellow,bold=true},			-- subsection heading
+	["@markup.heading.4"]		= {fg=p.green,bold=true},			-- and so on
+	["@markup.heading.5"]		= {fg=p.teal,bold=true},			-- and so forth
+	["@markup.heading.6"]		= {fg=p.blue,bold=true},			-- six levels ought to be enough for anybody
 
 	["@markup.link"]			= {link="NormalNoBG"},				-- text references, footnotes, citations, etc.
 
@@ -210,7 +191,7 @@ M.theme = {
 	["@markup.list.checked"]	= {link="@operator"},				-- checked todo-style list markers
 	["@markup.list.unchecked"]	= {link="@operator"},				-- unchecked todo-style list markers
 
-	["@markup.quote"]			= {fg=p.blue2},						-- block quotes
+	["@markup.quote"]			= {fg=p.blue},						-- block quotes
 	["@markup.math"]			= {link="@markup.quote"},			-- math environments (e.g. `$ ... $` in LaTeX)
 	["@markup.raw"]				= {link="@markup.quote"},			-- literal or verbatim text (e.g. inline code)
 	["@markup.raw.block"]		= {link="@markup.quote"},			-- literal or verbatim text as a stand-alone block
@@ -262,13 +243,13 @@ M.theme = {
 	["LineNrAbove"]				= {link="@comment"},				-- Line number for when the 'relativenumber' option is set, above the cursor line.
 	["LineNrBelow"]				= {link="@comment"},				-- Line number for when the 'relativenumber' option is set, below the cursor line.
 
-	["MatchParen"]				= {fg=p.orange1,bg=p.beige40,bold=true},-- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+	["MatchParen"]				= {fg=p.orange,bg=p.beige40,bold=true},-- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
 
 	["MsgArea"]					= {link="Normal"},					-- Area for messages and command-line, see also 'cmdheight'.
 	["ErrorMsg"]				= {link="@comment.error"},			-- Error messages on the command line.
 	["ModeMsg"]					= {fg=p.beige100,bold=true},		-- 'showmode' message (e.g., "-- INSERT --").
-	["MsgSeparator"]			= {fg=p.beige0,bg=p.orange1},		-- Separator for scrolled messages |msgsep|.
-	["MoreMsg"]					= {fg=p.beige0,bg=p.purple2},		-- |more-prompt|
+	["MsgSeparator"]			= {fg=p.beige0,bg=p.beige20},		-- Separator for scrolled messages |msgsep|.
+	["MoreMsg"]					= {fg=p.beige0,bg=p.purple},		-- |more-prompt|
 	["Title"]					= {link="MoreMsg"},					-- Titles for output from ":set all", ":autocmd" etc.
 	["Question"]				= {link="MoreMsg"},					-- |hit-enter| prompt and yes/no questions.
 	["WarningMsg"]				= {link="@comment.warning"},		-- Warning messages.
@@ -280,11 +261,11 @@ M.theme = {
 	["NormalNC"]				= {link="Normal"},					-- Normal text in non-current windows.
 
 	["Pmenu"]					= {fg=p.beige100,bg=p.beige20},		-- Popup menu: Normal item.
-	["PmenuSel"]				= {fg=p.beige0,bg=p.blue1},			-- Popup menu: Selected item. Combined with |hl-Pmenu|.
-	["PmenuKind"]				= {fg=p.teal2,bg=p.beige20},		-- Popup menu: Normal item "kind".
-	["PmenuKindSel"]			= {fg=p.beige0,bg=p.teal2},			-- Popup menu: Selected item "kind".
-	["PmenuExtra"]				= {fg=p.purple2,bg=p.beige20},		-- Popup menu: Normal item "extra text".
-	["PmenuExtraSel"]			= {fg=p.beige0,bg=p.purple2},		-- Popup menu: Selected item "extra text".
+	["PmenuSel"]				= {fg=p.beige0,bg=p.blue},			-- Popup menu: Selected item. Combined with |hl-Pmenu|.
+	["PmenuKind"]				= {fg=p.teal,bg=p.beige20},		-- Popup menu: Normal item "kind".
+	["PmenuKindSel"]			= {fg=p.beige0,bg=p.teal},			-- Popup menu: Selected item "kind".
+	["PmenuExtra"]				= {fg=p.purple,bg=p.beige20},		-- Popup menu: Normal item "extra text".
+	["PmenuExtraSel"]			= {fg=p.beige0,bg=p.purple},		-- Popup menu: Selected item "extra text".
 	["PmenuSbar"]				= {fg=p.beige100,bg=p.beige40},		-- Popup menu: Scrollbar.
 	["PmenuThumb"]				= {link="PmenuSbar"},				-- Popup menu: Thumb of the scrollbar.
 	["PmenuMatch"]				= {link="Pmenu"},					-- Popup menu: Matched text in normal item. Combined with |hl-Pmenu|.
@@ -294,12 +275,12 @@ M.theme = {
 	["Tooltip"]					= {link="Pmenu"},					-- Current font, background and foreground of the tooltips. Applicable highlight arguments: font, guibg, guifg.
 	["WildMenu"]				= {link="PmenuSel"},				-- Current match in 'wildmenu' completion.
 
-	["QuickFixLine"]			= {fg=p.blue2},						-- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
+	["QuickFixLine"]			= {fg=p.blue},						-- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
 
 	["Scrollbar"]				= {link="PmenuSbar"},				-- Current background and foreground of the main window's scrollbars. Applicable highlight arguments: guibg, guifg.
 
 	["Search"]					= {fg=p.beige100,bg=p.beige40},		-- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
-	["CurSearch"]				= {fg=p.beige100,bg=p.blue2,bold=true},-- Current match for the last search pattern (see 'hlsearch'). Note: This is correct after a search, but may get outdated if changes are made or the screen is redrawn.
+	["CurSearch"]				= {fg=p.beige100,bg=p.blue,bold=true},-- Current match for the last search pattern (see 'hlsearch'). Note: This is correct after a search, but may get outdated if changes are made or the screen is redrawn.
 	["IncSearch"]				= {link="CurSearch"},				-- 'incsearch' highlighting; also used for the text replaced with ":s///c".
 
 	["SnippetTabstop"]			= {link="NormalNoBG"},				-- Tabstops in snippets. |vim.snippet|
@@ -327,45 +308,62 @@ M.theme = {
 	["WinSeparator"]			= {fg=p.beige80},					-- Separators between window splits.
 
 	-- --------------------------------------------------------------------------------------- }}} -
+	-- diff ---------------------------------------------------------------------------------- {{{ -
+
+	["@diff.delta"]				= {fg=p.beige0,bg=p.blue},			-- changed text (for diff files)
+	["Changed"]					= {link="@diff.delta"},				-- changed line in a diff
+	["DiffChange"]				= {link="@diff.delta"},				-- Diff mode: Changed line. |diff.txt|
+	
+	["@diff.plus"]				= {fg=p.beige0,bg=p.green},			-- added text (for diff files)
+	["Added"]					= {link="@diff.plus"},				-- added line in a diff
+	["DiffAdd"]					= {link="@diff.plus"},				-- Diff mode: Added line. |diff.txt|
+
+	["@diff.minus"]				= {fg=p.beige0,bg=p.orange},		-- deleted text (for diff files)
+	["DiffDelete"]				= {link="@diff.minus"},				-- Diff mode: Deleted line. |diff.txt|
+	["Removed"]					= {link="@diff.minus"},				-- removed line in a diff
+
+	["DiffText"]				= {link="NormalNoBG"},				-- Diff mode: Changed text within a changed line. |diff.txt|
+
+	-- --------------------------------------------------------------------------------------- }}} -
 
 	-- indegrations -------------------------------------------------------------------------- {{{ -
 	
 	-- https://github.com/lukas-reineke/indent-blankline.nvim
 	["IblIndent"]				= {fg=p.beige20},					-- The default highlight group for indentation characters.
 	["IblWhitespace"]			= {link="NormalNoBG"},				-- The default highlight group for whitespace characters.
-	["IblScope"]				= {link="@function"},				-- The default highlight group for |ibl.config.scope| characters.
+	["IblScope"]				= {fg=p.blue},						-- The default highlight group for |ibl.config.scope| characters.
 
 	-- --------------------------------------------------------------------------------------- }}} -
 
 	-- lsp diagnostics ----------------------------------------------------------------------- {{{ -
 
-	["DiagnosticError"]				= {fg=p.red,bg=p.beige10},	--Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+	["DiagnosticError"]				= {fg=p.red,bg=p.beige10},		--Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
 	["DiagnosticWarn"]				= {fg=p.yellow,bg=p.beige10},	--Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-	["DiagnosticInfo"]				= {fg=p.blue2,bg=p.beige10},	--Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-	["DiagnosticHint"]				= {fg=p.teal2,bg=p.beige10},	--Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-	["DiagnosticOk"]				= {fg=p.green2,bg=p.beige10},	--Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-	["DiagnosticVirtualTextError"]	= {link="DiagnosticError"},	--Used for "Error" diagnostic virtual text.
-	["DiagnosticVirtualTextWarn"]	= {link="DiagnosticWarn"},	--Used for "Warn" diagnostic virtual text.
-	["DiagnosticVirtualTextInfo"]	= {link="DiagnosticInfo"},	--Used for "Info" diagnostic virtual text.
-	["DiagnosticVirtualTextHint"]	= {link="DiagnosticHint"},	--Used for "Hint" diagnostic virtual text.
-	["DiagnosticVirtualTextOk"]		= {link="DiagnosticOk"},	--Used for "Ok" diagnostic virtual text.
+	["DiagnosticInfo"]				= {fg=p.blue,bg=p.beige10},		--Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+	["DiagnosticHint"]				= {fg=p.teal,bg=p.beige10},		--Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+	["DiagnosticOk"]				= {fg=p.green,bg=p.beige10},	--Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+	["DiagnosticVirtualTextError"]	= {link="DiagnosticError"},		--Used for "Error" diagnostic virtual text.
+	["DiagnosticVirtualTextWarn"]	= {link="DiagnosticWarn"},		--Used for "Warn" diagnostic virtual text.
+	["DiagnosticVirtualTextInfo"]	= {link="DiagnosticInfo"},		--Used for "Info" diagnostic virtual text.
+	["DiagnosticVirtualTextHint"]	= {link="DiagnosticHint"},		--Used for "Hint" diagnostic virtual text.
+	["DiagnosticVirtualTextOk"]		= {link="DiagnosticOk"},		--Used for "Ok" diagnostic virtual text.
 	["DiagnosticUnderlineError"]	= {fg=p.red,underline=true},	--Used to underline "Error" diagnostics.
 	["DiagnosticUnderlineWarn"]		= {fg=p.yellow,underline=true},	--Used to underline "Warn" diagnostics.
-	["DiagnosticUnderlineInfo"]		= {fg=p.blue2,underline=true},	--Used to underline "Info" diagnostics.
-	["DiagnosticUnderlineHint"]		= {fg=p.teal2,underline=true},	--Used to underline "Hint" diagnostics.
-	["DiagnosticUnderlineOk"]		= {fg=p.green2,underline=true},	--Used to underline "Ok" diagnostics.
-	["DiagnosticFloatingError"]		= {link="DiagnosticError"},	--Used to color "Error" diagnostic messages in diagnostics float. See |vim.diagnostic.open_float()|
-	["DiagnosticFloatingWarn"]		= {link="DiagnosticWarn"},	--Used to color "Warn" diagnostic messages in diagnostics float.
-	["DiagnosticFloatingInfo"]		= {link="DiagnosticInfo"},	--Used to color "Info" diagnostic messages in diagnostics float.
-	["DiagnosticFloatingHint"]		= {link="DiagnosticHint"},	--Used to color "Hint" diagnostic messages in diagnostics float.
-	["DiagnosticFloatingOk"]		= {link="DiagnosticOk"},	--Used to color "Ok" diagnostic messages in diagnostics float.
-	["DiagnosticSignError"]			= {fg=p.red},	--Used for "Error" signs in sign column.
-	["DiagnosticSignWarn"]			= {fg=p.yellow},	--Used for "Warn" signs in sign column.
-	["DiagnosticSignInfo"]			= {fg=p.blue2},	--Used for "Info" signs in sign column.
-	["DiagnosticSignHint"]			= {fg=p.teal2},	--Used for "Hint" signs in sign column.
-	["DiagnosticSignOk"]			= {fg=p.green2},	--Used for "Ok" signs in sign column.
-	["DiagnosticDeprecated"]		= {fg=p.purple1,bg=p.beige10},	--Used for deprecated or obsolete code.
-	["DiagnosticUnnecessary"]		= {fg=p.teal1,bg=p.beige10},	--Used for unnecessary or unused code.
+	["DiagnosticUnderlineInfo"]		= {fg=p.blue,underline=true},	--Used to underline "Info" diagnostics.
+	["DiagnosticUnderlineHint"]		= {fg=p.teal,underline=true},	--Used to underline "Hint" diagnostics.
+	["DiagnosticUnderlineOk"]		= {fg=p.green,underline=true},	--Used to underline "Ok" diagnostics.
+	["DiagnosticFloatingError"]		= {link="DiagnosticError"},		--Used to color "Error" diagnostic messages in diagnostics float. See |vim.diagnostic.open_float()|
+	["DiagnosticFloatingWarn"]		= {link="DiagnosticWarn"},		--Used to color "Warn" diagnostic messages in diagnostics float.
+	["DiagnosticFloatingInfo"]		= {link="DiagnosticInfo"},		--Used to color "Info" diagnostic messages in diagnostics float.
+	["DiagnosticFloatingHint"]		= {link="DiagnosticHint"},		--Used to color "Hint" diagnostic messages in diagnostics float.
+	["DiagnosticFloatingOk"]		= {link="DiagnosticOk"},		--Used to color "Ok" diagnostic messages in diagnostics float.
+	["DiagnosticSignError"]			= {fg=p.red},					--Used for "Error" signs in sign column.
+	["DiagnosticSignWarn"]			= {fg=p.yellow},				--Used for "Warn" signs in sign column.
+	["DiagnosticSignInfo"]			= {fg=p.blue},					--Used for "Info" signs in sign column.
+	["DiagnosticSignHint"]			= {fg=p.teal},					--Used for "Hint" signs in sign column.
+	["DiagnosticSignOk"]			= {fg=p.green},					--Used for "Ok" signs in sign column.
+	["DiagnosticDeprecated"]		= {fg=p.purple,bg=p.beige10},	--Used for deprecated or obsolete code.
+	["DiagnosticUnnecessary"]		= {fg=p.teal,bg=p.beige10},		--Used for unnecessary or unused code.
 
 	-- --------------------------------------------------------------------------------------- }}} -
 
@@ -405,6 +403,8 @@ M.theme = {
 
 	-- --------------------------------------------------------------------------------------- }}} -
 	
-}
+	}
+
+end
 
 return M

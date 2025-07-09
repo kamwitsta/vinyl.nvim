@@ -1,4 +1,4 @@
-local p = require("vinyl.palette").palette
+local p = require("vinyl.palette").get_palette(nil)
 
 return {
 

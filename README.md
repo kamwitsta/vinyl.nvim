@@ -1,6 +1,6 @@
 # 📀 Vinyl
 
-This scheme has been modelled on the examples in [this talk](https://www.youtube.com/watch?v=tJR-MvPQhT8). I reached out to the speaker but got no reply. He probably used [this one](https://github.com/runarorama/gruvbox) but by the time I found out, this scheme was already almost finished and it has turned out somewhat different, and in fact more to my liking, so… Behold, an immitation of a [modification](https://github.com/runarorama/gruvbox) of a [modification](https://github.com/dkasak/gruvbox) of [gruvbox](https://github.com/morhetz/gruvbox).
+This scheme has been modelled on the examples in [this talk](https://www.youtube.com/watch?v=tJR-MvPQhT8). I reached out to the speaker but got no reply. He probably used [this one](https://github.com/runarorama/gruvbox) but by the time I found out, this scheme was already almost finished and it has turned out somewhat different, and in fact more to my liking, so… Behold, an immitation of a [modification](https://github.com/runarorama/gruvbox) of a [modification](https://github.com/dkasak/gruvbox) of [gruvbox](https://github.com/morhetz/gruvbox) – since version 0.2.0 also taking some cues from the Emacs [port](https://github.com/greduan/emacs-theme-gruvbox) of gruvbox!
 
 A warm, feel-good theme with slightly unusual semantics.
 
@@ -39,3 +39,4 @@ At present, only one option is available: `overrides`. Using lazy.nvim:
 ## Acknowledgements
 
 - [This talk](https://www.youtube.com/watch?v=tJR-MvPQhT8)
+- [Emacs port of Gruvbox](https://github.com/greduan/emacs-theme-gruvbox)
