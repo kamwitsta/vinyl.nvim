@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0
+- changed to dark/light variant
+– minor tweaks
+
 ## 0.1.2
 - added integration: https://github.com/lukas-reineke/indent-blankline.nvim
 - many small tweaks, mostly inspired by https://github.com/greduan/emacs-theme-gruvbox

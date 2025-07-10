@@ -2,7 +2,6 @@ local M = {}
 
 function M.get_theme(variant)
 
-	vim.print(variant)
 
 	local p = require("vinyl.palette").get_palette(variant)
 

@@ -27,6 +27,7 @@ At present, only one option is available: `overrides`. Using lazy.nvim:
     "kamwitsta/vinyl.nvim",
     config = function()
         require("vinyl").setup({
+            variant = "dark"   -- the default is "light"
             overrides = {
                 ["@string"] = {fg="#00ff00"},
             },

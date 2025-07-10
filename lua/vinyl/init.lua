@@ -1,6 +1,8 @@
 local M = {}
 
+
 M.theme = require("vinyl.theme").get_theme(nil)
+
 
 function M.setup(opts)
 
@@ -13,6 +15,7 @@ function M.setup(opts)
 	end
 
 end
+
 
 function M.load()
 
@@ -27,5 +30,6 @@ function M.load()
 	end
 
 end
+
 
 return M

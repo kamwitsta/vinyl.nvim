@@ -54,6 +54,5 @@ return M
 
 -- beige90	= "#ead9b3",
 -- beige70	= "#beb194",
--- beige50 = "#938a75",
+-- beige50	= "#938a75",
 -- beige30	= "#696357",
-

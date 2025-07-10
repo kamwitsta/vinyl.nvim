@@ -9,25 +9,25 @@ return {
 	},
 
 	insert = {
-		a = {fg=p.beige0,bg=p.teal1,bold=true},
+		a = {fg=p.beige0,bg=p.teal,bold=true},
 		b = {fg=p.beige0,bg=p.beige40},
 		c = {fg=p.beige0,bg=p.beige40},
 	},
 
 	visual = {
-		a = {fg=p.beige0,bg=p.purple1,bold=true},
+		a = {fg=p.beige0,bg=p.purple,bold=true},
 		b = {fg=p.beige0,bg=p.beige40},
 		c = {fg=p.beige0,bg=p.beige40},
 	},
 
 	replace = {
-		a = {fg=p.beige0,bg=p.orange2,bold=true},
+		a = {fg=p.beige0,bg=p.orange,bold=true},
 		b = {fg=p.beige0,bg=p.beige40},
 		c = {fg=p.beige0,bg=p.beige40},
 	},
 
 	command = {
-		a = {fg=p.beige0,bg=p.green1,bold=true},
+		a = {fg=p.beige0,bg=p.green,bold=true},
 		b = {fg=p.beige0,bg=p.beige40},
 		c = {fg=p.beige0,bg=p.beige40},
 	},
