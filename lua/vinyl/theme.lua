@@ -82,7 +82,7 @@ function M.get_theme(variant)
 	-- --------------------------------------------------------------------------------------- }}} -
 	-- functions ----------------------------------------------------------------------------- {{{ -
 
-	["@function"]				= {fg=p.yellow},					-- function definitions
+	["@function"]				= {fg=p.orange},					-- function definitions
 	["Function"]				= {link="@function"},				-- function name (also: methods for classes)
 
 	["@function.builtin"]		= {link="NormalNoBG"},				-- built-in functions
@@ -132,18 +132,19 @@ function M.get_theme(variant)
 	-- --------------------------------------------------------------------------------------- }}} -
 	-- flow control -------------------------------------------------------------------------- {{{ -
 
-	["@keyword.conditional"]	= {fg=p.red},						-- keywords related to conditionals (e.g. `if`, `else`)
+	["@keyword.conditional"]	= {fg=p.yellow},					-- keywords related to conditionals (e.g. `if`, `else`)
 	["@keyword.conditional.ternary"] = {link="@keyword.conditional"},-- ternary operator (e.g. `?`, `:`)
-	["@keyword.exception"]		= {link="@keyword.conditional"},	-- keywords related to exceptions (e.g. `throw`, `catch`)
-	["@keyword.return"]			= {link="@keyword.conditional"},	-- keywords like `return` and `yield`
-	["@label"]					= {link="@keyword.conditional"},	-- `GOTO` and other labels (e.g. `label:` in C), including heredoc labels
-	["Conditional"]				= {link="@keyword.conditional"},	-- if, then, else, endif, switch, etc.
-	["Exception"]				= {link="@keyword.conditional"},	-- try, catch, throw
-	["Keyword"]					= {link="@keyword.conditional"},	-- any other keyword
-	["Label"]					= {link="@keyword.conditional"},	-- case, default, etc.
-	["Statement"]				= {link="@keyword.conditional"},	-- any statement
 
-	["@keyword.repeat"]			= {link="NormalNoBG"},				-- keywords related to loops (e.g. `for`, `while`)
+	["@keyword.exception"]		= {fg=p.red},						-- keywords related to exceptions (e.g. `throw`, `catch`)
+	["@keyword.repeat"]			= {link="@keyword.exception"},		-- keywords related to loops (e.g. `for`, `while`)
+	["@keyword.return"]			= {link="@keyword.exception"},		-- keywords like `return` and `yield`
+	["@label"]					= {link="@keyword.exception"},		-- `GOTO` and other labels (e.g. `label:` in C), including heredoc labels
+	["Conditional"]				= {link="@keyword.exception"},		-- if, then, else, endif, switch, etc.
+	["Exception"]				= {link="@keyword.exception"},		-- try, catch, throw
+	["Keyword"]					= {link="@keyword.exception"},		-- any other keyword
+	["Label"]					= {link="@keyword.exception"},		-- case, default, etc.
+	["Statement"]				= {link="@keyword.exception"},		-- any statement
+
 	["@keyword.coroutine"]		= {link="NormalNoBG"},				-- keywords related to coroutines (e.g. `go` in Go, `async/await` in Python)
 	["Repeat"]					= {link="NormalNoBG"},				-- for, do, while, etc.
 	
@@ -325,7 +326,7 @@ function M.get_theme(variant)
 
 	-- --------------------------------------------------------------------------------------- }}} -
 
-	-- indegrations -------------------------------------------------------------------------- {{{ -
+	-- integrations -------------------------------------------------------------------------- {{{ -
 	
 	-- https://github.com/lukas-reineke/indent-blankline.nvim
 	["IblIndent"]				= {fg=p.beige20},					-- The default highlight group for indentation characters.

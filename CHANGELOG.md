@@ -1,13 +1,9 @@
 # Changelog
 
-## 0.2.0
-- changed to dark/light variant
-– minor tweaks
-
-## 0.1.2
-- added integration: https://github.com/lukas-reineke/indent-blankline.nvim
+## 0.2.0 (21.09.2025)
+- split to darker/lighter variants
 - many small tweaks, mostly inspired by https://github.com/greduan/emacs-theme-gruvbox
-- tweaks to Lualine
+- added integration: https://github.com/lukas-reineke/indent-blankline.nvim
 
 ## 0.1.1 (17.05.2025)
 - added integration: terminator
