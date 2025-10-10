@@ -27,7 +27,7 @@ At present, two options are available: `overrides` and `variant`. Using lazy.nvi
     "kamwitsta/vinyl.nvim",
     config = function()
         require("vinyl").setup({
-            variant = "darker"   -- the default is "lighter"
+            variant = "darker",   -- the default is "lighter"
             overrides = {
                 ["@string"] = {fg="#00ff00"},
             },
